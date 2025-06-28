@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | MyMedsMate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts & Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .split-container {
+      display: flex;
+      height: 100vh;
+      transition: background-color 0.3s;
+    }
+
+    .left-image {
+      flex: 3;
+      background: url('https://img.freepik.com/free-photo/medical-equipment-desk-with-copy-space_23-2148519754.jpg') center center / contain no-repeat;
+      background-color: #f0f4f8;
+    }
+
+    .right-content {
+      flex: 1;
+      background: rgba(255,255,255,0.98);
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+      animation: slideIn 0.8s ease;
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #2564cf;
+      margin-bottom: 25px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-login {
+      background: linear-gradient(90deg, #3c79e6, #244a9f);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(90deg, #244a9f, #3c79e6);
+    }
+
+    .form-control:focus {
+      border-color: #3c79e6;
+      box-shadow: 0 0 0 0.2rem rgba(60,121,230,0.25);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #889;
+    }
+
+    .alert {
+      background: #ffe3e3;
+      color: #b00000;
+      border-left: 5px solid #e74c3c;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    /* Dark Mode */
+    .dark-mode .right-content {
+      background: #1e1e2f;
+      color: #f5f5f5;
+    }
+
+    .dark-mode .form-control {
+      background-color: #2d2d3c;
+      border-color: #444;
+      color: #f5f5f5;
+    }
+
+    .dark-mode .form-control::placeholder {
+      color: #aaa;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #666;
+      transition: color 0.3s;
+    }
+
+    .dark-mode .dark-toggle {
+      color: #ddd;
+    }
+
+    .loading-spinner {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .welcome {
+      font-size: 1.2rem;
+      color: #333;
+      animation: fadeIn 1.2s ease-in;
+      margin-bottom: 15px;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="split-container" id="pageContainer">
+    <!-- Left Panel -->
+    <div class="left-image"></div>
+
+    <!-- Right Panel -->
+    <div class="right-content">
+      <div class="dark-toggle" onclick="toggleDarkMode()">
+        <i class="bi bi-moon-stars-fill"></i>
+      </div>
+
+      <div class="brand-title">
+        <i class="bi bi-heart-pulse-fill" style="color:#e62965;"></i> MyMedsMate
+      </div>
+
+      <div class="welcome">👋 Welcome! Please login to continue</div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="post" autocomplete="off" onsubmit="showLoader()">
+        <div class="mb-3 w-100">
+          <input class="form-control" type="text" name="username" placeholder="Username" required autofocus>
+        </div>
+        <div class="mb-4 w-100">
+          <input class="form-control" type="password" name="password" placeholder="Password" required>
+        </div>
+        <button class="btn btn-login" type="submit">Login</button>
+        <div class="loading-spinner" id="spinner">
+          <div class="spinner-border text-primary mt-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="footer mt-4">
+        &copy; {{ year }} MyMedsMate. All rights reserved.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.getElementById("pageContainer").classList.toggle("dark-mode");
+    }
+
+    function showLoader() {
+      document.getElementById("spinner").style.display = "block";
+    }
+  </script>
+</body>
+</html>

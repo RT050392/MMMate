@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Success | MyMedsMate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts & Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: 
+        linear-gradient(to bottom right, rgba(0,0,0,0.5), rgba(0,30,60,0.3)),
+        url('https://img.freepik.com/free-photo/medical-equipment-desk-with-copy-space_23-2148519754.jpg') center center/cover no-repeat fixed;
+    }
+
+    .container-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .success-box {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 48px 36px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      animation: fadeSlideUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .brand-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #2463d6;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .msg-block {
+      background: #e7f9ef;
+      color: #207544;
+      border: 1px solid #b6e2cd;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .msg-block i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #28a745;
+    }
+
+    .btn-custom {
+      display: block;
+      width: 100%;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 12px 0;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-view {
+      background: linear-gradient(90deg, #1e66e5, #1448a6);
+      color: #fff;
+    }
+
+    .btn-view:hover {
+      background: linear-gradient(90deg, #1448a6, #1e66e5);
+    }
+
+    .btn-upload {
+      background: #f0f4ff;
+      border: 1px solid #bed6f8;
+      color: #1e3f8c;
+    }
+
+    .btn-upload:hover {
+      background: #d7e7ff;
+    }
+
+    .btn-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #444;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #b3b3b3;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-wrapper">
+    <div class="success-box">
+      <div class="brand-title">
+        <i class="bi bi-heart-pulse-fill text-danger"></i> MyMedsMate
+      </div>
+
+      <div class="msg-block">
+        <i class="bi bi-cloud-check-fill"></i><br>
+        All selected prescriptions were uploaded to the cloud successfully!
+      </div>
+
+      <form method="post" action="{{ url_for('view_cloud_data') }}">
+        <button type="submit" class="btn btn-view btn-custom">
+          <i class="bi bi-cloud-arrow-down-fill me-2"></i> View Uploaded Data
+        </button>
+      </form>
+
+      <a href="{{ url_for('upload') }}" class="btn btn-upload btn-custom">
+        <i class="bi bi-arrow-repeat me-2"></i> Upload More Prescriptions
+      </a>
+
+      <a href="{{ url_for('logout') }}" class="btn-link">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+
+    <div class="footer">
+      &copy; {{ year }} MyMedsMate
+    </div>
+  </div>
+
+  <script>
+    // 🎉 Confetti Burst
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        confetti({
+          particleCount: 90,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }, 400);
+    });
+  </script>
+</body>
+</html>

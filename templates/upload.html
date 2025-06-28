@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Prescriptions | MyMedsMate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #4b8be6;
+      --secondary: #3652a3;
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --text-color: #0f1d40;
+      --bg-dark: #121212;
+      --glass-dark: rgba(40, 40, 40, 0.85);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 30, 60, 0.3)),
+        url('https://img.freepik.com/free-photo/medical-equipment-desk-with-copy-space_23-2148519754.jpg') center center / cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.4s ease;
+    }
+
+    body.dark-mode {
+      background: #0c0c0c;
+      color: white;
+    }
+
+    .upload-container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--bg-glass);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      padding: 40px 32px;
+      backdrop-filter: blur(12px);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    body.dark-mode .upload-container {
+      background: var(--glass-dark);
+      color: white;
+    }
+
+    .brand-header {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .card {
+      background: white;
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-upload {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      padding: 12px 0;
+      transition: all 0.3s ease;
+    }
+
+    .btn-upload:hover {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+    }
+
+    .alert {
+      background: #ffe2e2;
+      color: #b50000;
+      border-left: 5px solid #e74c3c;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.95rem;
+      color: #7b8a9a;
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50px;
+      padding: 6px 12px;
+      font-size: 1.1rem;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .dark-toggle:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .upload-container {
+        padding: 24px 16px;
+      }
+
+      .brand-header {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dark-toggle" id="toggleDark">
+    <i class="bi bi-moon-stars-fill"></i> Dark Mode
+  </div>
+
+  <div class="upload-container">
+    <div class="brand-header">
+      <i class="bi bi-heart-pulse-fill" style="color:#e62965;"></i> MyMedsMate
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="card mb-4">
+      <div class="card-header">
+        Upload Prescription(s)
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="fileInput" class="form-label">Select PDF/Image(s)</label>
+            <input class="form-control" type="file" id="fileInput" name="file" multiple required accept=".pdf,.jpg,.jpeg,.png">
+            <div class="form-text">You may select single or multiple files (PDF, JPG, JPEG, PNG)</div>
+          </div>
+          <button type="submit" class="btn btn-upload w-100">
+            <i class="bi bi-cloud-arrow-up"></i> Upload to Cloud
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      &copy; {{ year }} MyMedsMate
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleDark');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggleBtn.innerHTML = document.body.classList.contains('dark-mode')
+        ? '<i class="bi bi-brightness-high-fill"></i> Light Mode'
+        : '<i class="bi bi-moon-stars-fill"></i> Dark Mode';
+    });
+  </script>
+</body>
+</html>

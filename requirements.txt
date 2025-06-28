@@ -1,0 +1,10 @@
+Flask
+pandas
+pytesseract
+pdf2image
+easyocr
+PyPDF2
+azure-storage-blob
+azure-core
+Pillow
+gunicorn

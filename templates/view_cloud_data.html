@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cloud Data | MyMedsMate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Fonts & Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: 
+        linear-gradient(to bottom right, rgba(0,0,0,0.5), rgba(0,30,60,0.3)),
+        url('https://img.freepik.com/free-photo/medical-equipment-desk-with-copy-space_23-2148519754.jpg') center center/cover no-repeat fixed;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.93);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 44px 36px 38px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      animation: slideUp 0.7s ease-out;
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-header {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #2564cf;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cloud-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: #3652a3;
+      margin-bottom: 30px;
+    }
+
+    .btn-cloud {
+      background: linear-gradient(90deg, #347be7, #274aa3);
+      color: #fff;
+      font-weight: 600;
+      padding: 14px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(52, 123, 231, 0.2);
+    }
+
+    .btn-cloud:hover {
+      background: linear-gradient(90deg, #274aa3, #347be7);
+      transform: scale(1.03);
+    }
+
+    .btn-back {
+      display: inline-block;
+      text-align: center;
+      margin-top: 22px;
+      color: #1d44a0;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .btn-back:hover {
+      color: #0e2d6f;
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #b0b8c2;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 600px) {
+      .glass-card {
+        padding: 28px 20px;
+        margin: 20px;
+      }
+
+      .brand-header {
+        font-size: 1.6rem;
+      }
+
+      .cloud-title {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <div class="glass-card">
+      <div class="brand-header">
+        <i class="bi bi-heart-pulse-fill text-danger"></i> MyMedsMate
+      </div>
+
+      <div class="cloud-title">
+        <i class="bi bi-cloud-arrow-down-fill"></i> Data from Cloud Storage
+      </div>
+
+      <div class="d-grid mb-3">
+        <a href="{{ blob_url }}" target="_blank" class="btn btn-cloud">
+          <i class="bi bi-file-earmark-arrow-down"></i> Download/View Full CSV
+        </a>
+      </div>
+
+      <div class="text-center">
+        <a href="{{ url_for('upload') }}" class="btn-back">
+          <i class="bi bi-arrow-left"></i> Back to Upload
+        </a>
+      </div>
+    </div>
+
+    <div class="footer mt-4">
+      &copy; {{ year }} MyMedsMate &mdash; Secure Prescription Management
+    </div>
+  </div>
+
+  <!-- Confetti on Load -->
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      }, 400);
+    });
+  </script>
+</body>
+</html>
